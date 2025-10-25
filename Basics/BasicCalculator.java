@@ -35,5 +35,6 @@ public class BasicCalculator{
                 return;
         }
         System.out.println("Final output : " + result);
+        sc.close();
     }
 }

@@ -58,5 +58,6 @@ public class GuessTheNumber{
                     playAgain = false;
             }
         }
+        sc.close();
     }
 }

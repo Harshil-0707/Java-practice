@@ -1,5 +1,10 @@
 import java.util.Scanner;
 
+
+/*
+    This code is about simple student management system using java it uses 1D and 2D array to store data , static functions to make code re-usable and modular.
+*/
+
 public class StudentManagementSystem{
     public static void main(String args[]){
 
@@ -12,11 +17,15 @@ public class StudentManagementSystem{
         int[] totalMarks = new int[10];
         int[] rollNumbers = new int[10];
 
+        // Keep track whether to run the while loop for student management system or not.
         boolean run = true;
         // Below string array can hold total 10 strings(names).
         String[] names = new String[10];
         String[] grades = new String[10];
         
+
+        // This loop will be executed until user selects 5th option.
+
         while(run){
 
             System.out.println("===== Student Management System =====");
@@ -65,6 +74,7 @@ public class StudentManagementSystem{
         
         boolean addMore = true;
 
+        // Execute loop if user select 1st option and when user types y or Y to enter another student's marks.
         while(addMore){
 
             System.out.print("Enter student name: ");
@@ -76,6 +86,7 @@ public class StudentManagementSystem{
                 }
             }
             
+            // Don't exit the loop until the students enter the correct marks for all subjects.
             while(true){
                 System.out.print("Enter roll number: ");
                 if(!sc.hasNextInt()){
@@ -168,6 +179,8 @@ public class StudentManagementSystem{
             System.out.println("\nFirst add student's data.\n");
             return;
         }
+
+        // This is used to format string properly so that it's structure stay as it is.
         System.out.printf("%-8s | %-15s | %-12s | %-10s | %-8s%n", 
                   "Roll No", "Name", "Total marks", "Average", "Grade");
         System.out.println("-------------------------------------------------------------");

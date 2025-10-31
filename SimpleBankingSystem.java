@@ -3,11 +3,12 @@ import java.util.Scanner;
 public class SimpleBankingSystem{
     public static void main(String args[]){
         Scanner sc = new Scanner(System.in);
+
         boolean continueBanking = true;
 
         int balance = 1000;
 
-
+        // Continue banking until the user exits on their own.
         while(continueBanking){
 
             System.out.println("Welcome to Java Bank!");

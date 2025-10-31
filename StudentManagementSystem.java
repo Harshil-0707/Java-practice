@@ -70,6 +70,7 @@ public class StudentManagementSystem{
         sc.close();
     }
 
+    // static function to add students and to make code more modular.
     static int addStudents(String[] names,String[] grades,int[] rollNumbers,int[][] marks,int studentCount,int[] totalMarks,Scanner sc){
         
         boolean addMore = true;
@@ -174,6 +175,7 @@ public class StudentManagementSystem{
         return ++studentCount;
     }
 
+    // static function to show all students
     static void showAllStudents(String[] names,String[] grades,int[] rollNumbers,int[][] marks,int studentCount,int[] totalMarks){
         if(0 == studentCount){
             System.out.println("\nFirst add student's data.\n");
@@ -211,6 +213,7 @@ public class StudentManagementSystem{
         System.out.println("Topper: " + names[idx] + " (Roll no: " + rollNumbers[idx] + ") - Total Marks: " + highestMarks + "\n");
     }
 
+    // static function to search student using student's id.
     static void SearchStudent(int[] rollNumbers,String[] names,String[] grades,int[] totalMarks ,Scanner sc){
         while(true){
                 System.out.print("Enter the Roll number of student: ");

@@ -8,6 +8,7 @@ public class ShoppingCart{
         boolean addMore = true;
         int totalAmout = 0;
 
+        // Print selection options
         System.out.println("Available Items:");
         System.out.println("1. 100");
         System.out.println("2. 250");
@@ -15,6 +16,7 @@ public class ShoppingCart{
         System.out.println("4. 300");
         System.out.println("5. 120\n");
 
+        // Loop will be executed until cart is empty or user exits by him/her self.
         for(int i = 0 ; i < cart.length && addMore ; ){
             System.out.print("Enter item number to add: ");
             if(!sc.hasNextInt()){
@@ -48,6 +50,7 @@ public class ShoppingCart{
             System.out.print("Add another item? (y/n): ");
             char addAnotherItem = sc.next().trim().toLowerCase().charAt(0);
 
+            // Exit loop if cart is full or user exits.
             switch(addAnotherItem){
                 case 'Y':
                 case 'y':
@@ -68,21 +71,25 @@ public class ShoppingCart{
             }
         }
 
+        // Print all the items purchesed
         System.out.print("\nItems purchased : ");
         for(int item:cart){
             if(item == 0) break;
-            System.out.print(" "+item);
+            System.out.print(" " + item);
             totalAmout += item;
         }
 
         System.out.println("\nTotal = " + totalAmout);
         
+        // Calculate discount amount
         int discount = totalAmout > 500 ? ( (totalAmout * 10) / 100 ) : 0;
         System.out.println("Discount = " + discount);
         
+        // Subtract discount from the total amount.
         totalAmout = totalAmout - discount;
         System.out.println("Final amount = " + totalAmout);
 
+        // Close Scanner object to stop any kind of memory leak.
         sc.close();
     }
 }

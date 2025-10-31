@@ -5,7 +5,7 @@ public class StudentMarksAnalyzer{
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Enter makes of 5 studens:");
+        System.out.println("Enter markes of 5 studens:");
 
         int[] marks = new int[5];
         int sum = 0;
@@ -13,6 +13,7 @@ public class StudentMarksAnalyzer{
         int max = Integer.MIN_VALUE;
         int min = Integer.MAX_VALUE;
 
+        // Get marks of 5 students also calculate sum and find min and max marks of students.
         for(int i = 0 ; i < marks.length ;){
             if(!sc.hasNextInt()){
                 System.out.println("Enter values makes!!");
@@ -32,6 +33,7 @@ public class StudentMarksAnalyzer{
 
         float avgMarks = (float) sum / 5;
 
+        // Print all the marks.
         System.out.print("\nAll Marks: ");
         for(int mark:marks){
             System.out.print(mark + " ");

@@ -18,6 +18,11 @@ public class SimpleBankingSystem{
             System.out.println("4. Exit");
 
             System.out.print("Enter your choice : ");
+            if(!sc.hasNextInt()){
+                System.out.println("You should enter a number between 1 to 4");
+                sc.next();
+                continue;
+            }
             int choice = sc.nextInt();
 
             switch(choice){

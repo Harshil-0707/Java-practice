@@ -1,4 +1,7 @@
 import java.util.Scanner;
+import Bank.Account;
+import Bank.SavingsAccount.SavingsAccount;
+import Bank.CurrentAccount.CurrentAccount;
 /*
 This a mini banking system using inheritance part of OOP.
 */
@@ -224,93 +227,6 @@ public class BankingSystem_OOP_version{
             continue;
         }
         return accNum;
-    }
-
-}
-
-
-// Parent class
-class Account{
-
-    public static final String GREEN = "\u001B[92m";
-    public static final String RESET = "\u001B[0m";
-
-    final int accountNumber; 
-    final String accountType;
-    final int MINIMUM_AMOUNT = 1000;
-
-    String name;
-    double balance;
-
-    Account(int accountNumber,String accountType,String name){
-        this.accountNumber = accountNumber;
-        this.accountType = accountType;
-        this.name = name;
-    }
-
-    public void deposit(int amount){
-        this.balance += amount;
-        System.out.println(this.GREEN + "Deposit successful." + this.RESET);
-    }
-
-    public void withdraw(int amount){
-        if(this.balance < amount){
-            System.out.println("Insufficient balance");
-        }else{
-            this.balance -= amount;
-        }
-    }
-
-    // It's final function because there is no need to override it.
-    final public void checkBalance(){
-        System.out.println("\nYour balance is " + this.balance);
-        System.out.println("Account type: " + this.accountType);
-    }
-
-    // It's final function because there is no need to override it.
-    final public void displayDetails(){
-        System.out.println("\nAccount No: " + accountNumber);
-        System.out.println("Name: " + name);
-        System.out.println("Type: " + accountType);
-        System.out.println("Balance: " + balance);
-    }
-}
-
-
-// Child class
-class SavingsAccount extends Account{
-
-    SavingsAccount(int accountNumber,String name){
-        super(accountNumber,"Savings Account",name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase());
-    }
-
-    // Override withdraw method to make it specific for savings account.
-    public void withdraw(int amount){
-        if(this.balance - amount < MINIMUM_AMOUNT || this.balance < amount){
-            System.out.println("\nWithdrawal denied! Savings account must maintain minimum balance of 1000 Rupees.");
-        }else{
-            this.balance -= amount;
-            System.out.println(this.GREEN + "Withdrawal successful." + this.RESET);
-        }
-    }
-
-}
-
-// Child class
-class CurrentAccount extends Account{
-
-    CurrentAccount(int accountNumber, String name){
-        super(accountNumber, "Current Account", name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase());
-    }
-
-    // Override withdraw method to make it specific for current account.
-    public void withdraw(int amount){
-        if(this.balance - amount < -10000){
-            System.out.println("\nWithdrawal denied! Overdraft limit of Rupees 10,000 exceeded.");
-        }else{
-            this.balance -= amount;
-            System.out.println(this.GREEN + "Withdrawal successful." + this.RESET);
-        }
     }
 
 }

@@ -19,9 +19,9 @@ public class CreditCardPayment extends Payments implements Refundable {
     }
 
     @Override
-    public double refundableAmount(){
-        // refund 90% means service charge = 10%
-        return this.amount - PaymentUtils.calculateServiceCharge(this.amount,10);
+    public void refundableAmount(){
+        double refundableAmount = this.amount - PaymentUtils.calculateServiceCharge(this.amount,5); 
+        System.out.println(refundableAmount + " refunded successfully");
     }
 
 }

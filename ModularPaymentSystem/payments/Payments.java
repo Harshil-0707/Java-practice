@@ -17,7 +17,4 @@ abstract public class Payments{
         System.out.println("Amount: " + this.amount);
     }
 
-    public boolean validateAmount(){
-        return true;
-    }
 }

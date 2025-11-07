@@ -55,6 +55,14 @@ public class Main{
 
                     CreditCardPayment ccp = new CreditCardPayment(customerName,amount,cardNumber);
                     ccp.processPayment();
+                    
+                    System.out.print("\nDo you want refund? (yes/no): ");
+                    String ans = sc.next();
+
+                    if(ans.equalsIgnoreCase("yes")){
+                        // call refund
+                        ccp.refundableAmount();
+                    }
                     break;
                 }
                 // UPI
@@ -111,6 +119,14 @@ public class Main{
 
                     NetBankingPayment nbp = new NetBankingPayment(customerName,amount,bankAccount);
                     nbp.processPayment();
+
+                    System.out.print("\nDo you want refund? (yes/no): ");
+                    String ans = sc.next();
+
+                    if(ans.equalsIgnoreCase("yes")){
+                        // call refund
+                        nbp.refundableAmount();
+                    }
                     break;
                 }
                 // Exit

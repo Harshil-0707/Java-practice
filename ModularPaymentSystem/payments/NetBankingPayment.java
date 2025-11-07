@@ -19,9 +19,10 @@ public class NetBankingPayment extends Payments implements Refundable{
     }
 
     @Override
-    public double refundableAmount(){
+    public void refundableAmount(){
         // refund 90% means service charge = 5%
-        return this.amount - PaymentUtils.calculateServiceCharge(this.amount,5);
+        double refundableAmount = this.amount - PaymentUtils.calculateServiceCharge(this.amount,5); 
+        System.out.println(refundableAmount + " refunded successfully");
     }
 
 }

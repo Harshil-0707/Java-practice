@@ -1,4 +1,4 @@
-package system;
+package systems;
 import java.util.ArrayList;
 import java.util.Scanner;
 import modal.Course;
@@ -42,9 +42,9 @@ public class RegistrationSystem{
         String courseName = sc.nextLine();
         int courseFee;
         while(true){
-            System.out.print("Enter roll number: ");
+            System.out.print("Enter course fee: ");
             if(!sc.hasNextInt()){
-                System.out.println("Please enter your roll number.");
+                System.out.println("Please enter course fee.");
                 sc.next();
                 continue;
             }
@@ -64,6 +64,10 @@ public class RegistrationSystem{
     }
 
     public void registerStudentIntoCourse(Scanner sc){
+        if(allCourses.size() == 0){
+            System.out.println("Create the course first.");
+            return;
+        }
         int rollNumber;
         while(true){
             System.out.print("Enter roll number: ");
@@ -94,7 +98,7 @@ public class RegistrationSystem{
         }
 
         for(Course ac : allCourses){
-            System.out.println((allCourses.indexOf(ac) + 1) + ". " + ac.courseName + " - Rs " + ac.courseFee);
+            System.out.println((allCourses.indexOf(ac) + 1) + ". " + ac.getCourseName() + " - Rs " + ac.getCourseFee());
         }
 
         while(true){
@@ -106,12 +110,11 @@ public class RegistrationSystem{
             }
             int choice = sc.nextInt();
 
-            if(choice - 1 > allCourses.size() || choice - 1 < 1){
+            if(choice - 1 > allCourses.size() || choice - 1 < 0){
                 System.out.println("Enter number between given option.");
                 continue;
             }
-            Student st = new Student();
-            st.addCourse(allCourses.get(choice));
+            s.addCourse(allCourses.get(choice-1));
             System.out.println("Course registered successfully!");
             break;
         }
@@ -133,21 +136,27 @@ public class RegistrationSystem{
             }
             break;
         }
-        int amountToPay;
-        while(true){
-            System.out.print("Enter amount to pay: ");
-            if(!sc.hasNextInt()){
-                System.out.println("Please enter valid amount.");
-                sc.next();
-                continue;
+        Student s = null;
+        for(Student st : allStudents){
+            if(rollNumber == st.getRoll()){
+                s = st;
+                break;
             }
-            amountToPay = sc.nextInt();
-            if(amountToPay < 0){
-                System.out.println("Invalid amount.");
-                continue;
-            }
-            break;
         }
+
+        if(null == s){
+            System.out.println("Student not found.");
+            return;
+        }
+
+        System.out.println("---------- Student Details ----------");
+        System.out.println("Name: " + s.getName());
+        System.out.println("Roll: " + rollNumber);
+        for(Course c : s.getRegisteredCourses()){
+            System.out.print("Courses Registered:\n- " + c.getCourseName());
+            System.out.print(" (Fee: " + c.getCourseFee() + ")\n");
+        }
+       
     }
 
     public void feePayment(Scanner sc){
@@ -165,6 +174,37 @@ public class RegistrationSystem{
                 continue;
             }
             break;
+        }
+        Student s = null;
+        for(Student st : allStudents){
+            if(rollNumber == st.getRoll()){
+                s = st;
+                break;
+            }
+        }
+
+        if(null == s){
+            System.out.println("Student not found.");
+            return;
+        }
+        int amountToPay;
+        while(true){
+            System.out.print("Enter amount to pay: ");
+            if(!sc.hasNextInt()){
+                System.out.println("Please enter valid amount.");
+                sc.next();
+                continue;
+            }
+            amountToPay = sc.nextInt();
+            if(amountToPay < 0){
+                System.out.println("Invalid amount.");
+                continue;
+            }
+            break;
+        }
+
+        for(Course c : s.getRegisteredCourses()){
+            c.setCourseFee(amountToPay);
         }
     }
 

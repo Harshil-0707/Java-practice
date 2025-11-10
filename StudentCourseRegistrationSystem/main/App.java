@@ -1,5 +1,6 @@
+package main;
 import java.util.Scanner;
-import system.RegistrationSystem;
+import systems.RegistrationSystem;
 
 public class App{
 
@@ -10,7 +11,7 @@ public class App{
         boolean running = true;
 
         while(running){
-            System.out.println("1. Add Student");
+            System.out.println("\n1. Add Student");
             System.out.println("2. Create Course");
             System.out.println("3. Register Student into Course");
             System.out.println("4. Show Student Details");
@@ -25,6 +26,7 @@ public class App{
                 continue;
             }
             int choice = sc.nextInt();
+            sc.nextLine();
             switch(choice){
                 case 1:
                     rs.addStudent(sc);
@@ -43,7 +45,7 @@ public class App{
                     break;
                 case 6:
                     running = false;
-                    System.out.println("Thank you for using the system!\nExiting...");
+                    System.out.println("Thank you for using the system!");
                     break;
                 default:
                     System.out.println("Invalid choice");

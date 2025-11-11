@@ -18,13 +18,4 @@ public class Course{
         return this.courseFee;
     }
 
-    public void setCourseFee(int courseFee){
-        if(courseFee <= this.courseFee ){
-            this.courseFee -= courseFee;
-            System.out.println("Course fee paid successfully!");
-        }else{
-            System.out.println("Invalid course fee");
-        }
-    }
-
 }

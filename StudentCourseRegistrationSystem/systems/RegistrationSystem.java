@@ -1,13 +1,21 @@
 package systems;
 import java.util.ArrayList;
 import java.util.Scanner;
-import modal.Course;
-import modal.Student;
+import modal.*;
 
 public class RegistrationSystem{
 
     private ArrayList<Course> allCourses = new ArrayList<>();
     private ArrayList<Student> allStudents = new ArrayList<>();
+
+    private Student findStudentByRoll(int rollNumber){
+        for(Student s : allStudents){
+            if(rollNumber == s.getRoll()){
+                return s;
+            }
+        }
+        return null;
+    }
 
     public void addStudent(Scanner sc){
         
@@ -22,6 +30,7 @@ public class RegistrationSystem{
                 continue;
             }
             rollNumber = sc.nextInt();
+            sc.nextLine();
             if(rollNumber <= 0){
                 System.out.println("Invalid roll number.");
                 continue;
@@ -49,6 +58,7 @@ public class RegistrationSystem{
                 continue;
             }
             courseFee = sc.nextInt();
+            sc.nextLine();
             if(courseFee < 0){
                 System.out.println("Invalid course fee.");
                 continue;
@@ -77,6 +87,7 @@ public class RegistrationSystem{
                 continue;
             }
             rollNumber = sc.nextInt();
+            sc.nextLine();
             if(rollNumber <= 0){
                 System.out.println("Invalid roll number.");
                 continue;
@@ -84,13 +95,7 @@ public class RegistrationSystem{
             break;
         }
 
-        Student s = null;
-        for(Student st : allStudents){
-            if(rollNumber == st.getRoll()){
-                s = st;
-                break;
-            }
-        }
+        Student s = findStudentByRoll(rollNumber);
 
         if(null == s){
             System.out.println("Student not found.");
@@ -109,10 +114,16 @@ public class RegistrationSystem{
                 continue;
             }
             int choice = sc.nextInt();
-
-            if(choice - 1 > allCourses.size() || choice - 1 < 0){
+            sc.nextLine();
+            if(choice > allCourses.size() || choice < 1){
                 System.out.println("Enter number between given option.");
                 continue;
+            }
+            for(Course c : s.getRegisteredCourses()){
+                if(c.getCourseName().equalsIgnoreCase(allCourses.get(choice-1).getCourseName())){
+                    System.out.println("You are already registered in the course.");
+                    return;
+                }
             }
             s.addCourse(allCourses.get(choice-1));
             System.out.println("Course registered successfully!");
@@ -130,19 +141,14 @@ public class RegistrationSystem{
                 continue;
             }
             rollNumber = sc.nextInt();
+            sc.nextLine();
             if(rollNumber <= 0){
                 System.out.println("Invalid roll number.");
                 continue;
             }
             break;
         }
-        Student s = null;
-        for(Student st : allStudents){
-            if(rollNumber == st.getRoll()){
-                s = st;
-                break;
-            }
-        }
+        Student s = findStudentByRoll(rollNumber);
 
         if(null == s){
             System.out.println("Student not found.");
@@ -152,10 +158,14 @@ public class RegistrationSystem{
         System.out.println("---------- Student Details ----------");
         System.out.println("Name: " + s.getName());
         System.out.println("Roll: " + rollNumber);
-        for(Course c : s.getRegisteredCourses()){
-            System.out.print("Courses Registered:\n- " + c.getCourseName());
-            System.out.print(" (Fee: " + c.getCourseFee() + ")\n");
+        System.out.println("Courses Registered:");
+        for (Course c : s.getRegisteredCourses()) {
+            System.out.println("- " + c.getCourseName() + " (Fee: " + c.getCourseFee() + ")");
         }
+        System.out.println("-------------------------------------");
+        System.out.println("Total Fee: " + s.getTotalFee());
+        System.out.println("Fee Paid: " + s.getFeePaid());
+        System.out.println("Remaining Fee: " + s.getRemainingFee());
        
     }
 
@@ -169,22 +179,21 @@ public class RegistrationSystem{
                 continue;
             }
             rollNumber = sc.nextInt();
+            sc.nextLine();
             if(rollNumber <= 0){
                 System.out.println("Invalid roll number.");
                 continue;
             }
             break;
         }
-        Student s = null;
-        for(Student st : allStudents){
-            if(rollNumber == st.getRoll()){
-                s = st;
-                break;
-            }
-        }
+        Student s = findStudentByRoll(rollNumber);
 
         if(null == s){
             System.out.println("Student not found.");
+            return;
+        }
+        if(s.getRegisteredCourses().size() == 0){
+            System.out.println("Enroll in the course first.");
             return;
         }
         int amountToPay;
@@ -196,6 +205,7 @@ public class RegistrationSystem{
                 continue;
             }
             amountToPay = sc.nextInt();
+            sc.nextLine();
             if(amountToPay < 0){
                 System.out.println("Invalid amount.");
                 continue;
@@ -203,9 +213,7 @@ public class RegistrationSystem{
             break;
         }
 
-        for(Course c : s.getRegisteredCourses()){
-            c.setCourseFee(amountToPay);
-        }
+        s.payFees(amountToPay);
     }
 
 }

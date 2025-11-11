@@ -11,7 +11,8 @@ public class App{
         boolean running = true;
 
         while(running){
-            System.out.println("\n1. Add Student");
+            System.out.println("\n==== Student Course Registration System ====");
+            System.out.println("1. Add Student");
             System.out.println("2. Create Course");
             System.out.println("3. Register Student into Course");
             System.out.println("4. Show Student Details");
@@ -51,6 +52,7 @@ public class App{
                     System.out.println("Invalid choice");
                     continue;
             }
+            System.out.println("-------------------------------------------");
         }
 
         sc.close();

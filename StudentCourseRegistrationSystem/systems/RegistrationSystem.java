@@ -3,10 +3,19 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import modal.*;
 
+/*
+* This class handles all the logic for the student's course registration system
+*/
+
 public class RegistrationSystem{
+
+    // To store all the course that has been created and also all the students that are registered
 
     private ArrayList<Course> allCourses = new ArrayList<>();
     private ArrayList<Student> allStudents = new ArrayList<>();
+
+
+    // A simple function to get student by roll number
 
     private Student findStudentByRoll(int rollNumber){
         for(Student s : allStudents){
@@ -16,6 +25,8 @@ public class RegistrationSystem{
         }
         return null;
     }
+
+    // Add student
 
     public void addStudent(Scanner sc){
         
@@ -45,6 +56,9 @@ public class RegistrationSystem{
 
     }
 
+
+    // Create course
+
     public void createCourse(Scanner sc){
 
         System.out.print("Enter course name: ");
@@ -72,6 +86,8 @@ public class RegistrationSystem{
         System.out.println("Course added successfully!");
         
     }
+
+    // Register course into student's object
 
     public void registerStudentIntoCourse(Scanner sc){
         if(allCourses.size() == 0){
@@ -131,6 +147,9 @@ public class RegistrationSystem{
         }
     }
 
+
+    // Show student info by roll number
+
     public void showStudentDetails(Scanner sc){
         int rollNumber;
         while(true){
@@ -168,6 +187,9 @@ public class RegistrationSystem{
         System.out.println("Remaining Fee: " + s.getRemainingFee());
        
     }
+
+
+    // Fee payment
 
     public void feePayment(Scanner sc){
         int rollNumber;

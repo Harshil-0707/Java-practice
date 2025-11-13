@@ -2,6 +2,11 @@ package main;
 import java.util.Scanner;
 import systems.RegistrationSystem;
 
+/*
+* This is my App class execution of the whole begins from here.
+* All the options are shown from this class and all the funtion call is also made from this class.
+*/
+
 public class App{
 
     public static void main(String args[]){
@@ -54,9 +59,6 @@ public class App{
             }
             System.out.println("-------------------------------------------");
         }
-
         sc.close();
-        
     }
-    
 }

@@ -9,6 +9,7 @@ public class Student{
     private int feePaid = 0;
     private ArrayList<Course> registeredCourses = new ArrayList<Course>();
 
+    // I made this empty constructor because some times I just want to create an object without any values because I already created constructor with parameters so default constructor is overridden
     public Student(){}
 
     public Student(String studentName, int rollNumber) {
@@ -16,10 +17,7 @@ public class Student{
         this.rollNumber = rollNumber;
     }
 
-    public void addCourse(Course c){
-        registeredCourses.add(c);
-        totalFee += c.getCourseFee();
-    }
+    // Getters for student name , registered courses , and roll number
 
     public String getName(){
         return this.studentName;
@@ -31,6 +29,25 @@ public class Student{
 
     public int getRoll(){
         return this.rollNumber;
+    }
+
+    public int getTotalFee(){
+        return this.totalFee;
+    }
+
+    public int getFeePaid(){
+        return this.feePaid;
+    }
+
+    public int getRemainingFee(){
+        return this.totalFee-feePaid;
+    }
+
+    // setter to add student's course and fee payment
+
+    public void addCourse(Course c){
+        registeredCourses.add(c);
+        totalFee += c.getCourseFee();
     }
 
     public void payFees(int amount){
@@ -47,18 +64,6 @@ public class Student{
         feePaid += amount;
         System.out.println("Payment of Rs " + amount + " successful!");
         System.out.println("Remaining Fee: " + (totalFee - feePaid));
-    }
-
-    public int getTotalFee(){
-        return this.totalFee;
-    }
-
-    public int getFeePaid(){
-        return this.feePaid;
-    }
-
-    public int getRemainingFee(){
-        return this.totalFee-feePaid;
     }
 
 }

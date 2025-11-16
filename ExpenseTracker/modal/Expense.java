@@ -26,16 +26,38 @@ public class Expense{
 
     }
 
-    public void editExpense(){
-
+    // Edit expense
+    public void editExpense(double amount,Category category,LocalDate date,String note){
+        this.amount = amount;
+        this.category = category;
+        this.date = date;
+        this.note = note;
     }
 
     public void deleteExpense(){
 
     }
 
+    // Getters
+
     public int getId(){
         return this.id;
+    }
+
+    public int getAmount(){
+        return this.amount;
+    }
+
+    public String getNote(){
+        return this.note;
+    }
+
+    public Category getCategory(){
+        return this.category;
+    }
+
+    public LocalDate getDate(){
+        return this.date;
     }
 
     public double getMonthlyTotal(){

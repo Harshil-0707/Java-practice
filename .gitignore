@@ -1,5 +1,7 @@
 # ignore all class files
 *.class
+*.txt
+Check.java
 
 # ignore compiled output directories (optional but recommended)
 out/

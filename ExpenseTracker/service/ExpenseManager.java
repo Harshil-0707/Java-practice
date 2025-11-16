@@ -30,7 +30,6 @@ public class ExpenseManager{
         return id;
     }
 
-
     public void addExpense(Scanner sc){
         double amount;
         while(true){
@@ -97,10 +96,65 @@ public class ExpenseManager{
         for(Expense e : allExpenses){
             if(e.getId() == id){
                 System.out.println("Editing Expense ID " + id + ":");
-                System.out.print("Enter new amount (or press Enter to keep same): ");
-                System.out.print("Enter new category (or press Enter to keep same): "); 
-                System.out.print("Enter new date (YYYY-MM-DD or Enter to keep same):");  
+                // Take amount
+                String amount;
+                while(true){
+                    System.out.print("Enter new amount (or press Enter to keep same): ");
+                    amount = sc.nextLine();
+                    if(amount.isEmpty()){
+                        amount = e.getAmount();
+                        break;
+                    }else{
+                        try{
+                            Integer.parseInt(amount);
+                        }catch(Exception e){
+                            System.out.println("Enter valid amount.");
+                            continue;
+                        }
+                    }
+                }
+                // Take categroy
+                Category category;
+                while(true){
+                    System.out.print("Enter new category (or press Enter to keep same): ");
+                    String userInput = sc.nextLine();
+                    if(userInput.isEmpty()){
+                        category = e.getCategory();
+                        break;
+                    }else{
+                        try{
+                            category = Category.valueOf(userInput.toUpperCase());
+
+                        }catch(IllegalArgumentException e){
+                            System.out.println("Invalid category!");
+                            continue;
+                        }
+                    }
+                    break;
+                } 
+                // Take date
+                LocalDate date;
+                while(true){
+                    System.out.print("Enter new date (YYYY-MM-DD or Enter to keep same: ");
+                    String userInput = sc.nextLine();
+                    if(userInput.isEmpty()){
+                        date = e.getDate();
+                        break;
+                    }else{
+                        try {
+                            date = LocalDate.parse(userInput);
+                        } catch (Exception e) {
+                            System.out.println("Invalid date! Please enter a valid day, month, and year.");
+                            continue;
+                        }
+                    }
+                    break;
+                }
+                // Take note
                 System.out.print("Enter new note (or press Enter to keep same): Sneakers on discount");
+                String note = sc.nextLine();
+                if(note.isEmpty()) note = e.getNote();
+                e.editExpense(amount , category , date , note);
                 break;
             }
         }
@@ -111,14 +165,22 @@ public class ExpenseManager{
         int id = getExpenseId(sc);
         for(Expense e : allExpenses){
             if(e.getId() == id){
-                System.out.println("Expense deleted successfully!");
                 e.remove(e);
+                System.out.println("Expense deleted successfully!");
                 break;
             }
         }
     }
 
-    public void viewAllExpense(Scanner sc){}
+    public void viewAllExpense(Scanner sc){
+        int id = getExpenseId(sc);
+        System.out.println("-------------- ALL EXPENSES --------------");
+        for(Expense e : allExpenses){
+            if(e.getId() == id){
+                break;
+            }
+        }
+    }
 
     public void monthlyTotal(Scanner sc){}
 

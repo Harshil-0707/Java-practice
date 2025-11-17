@@ -1,6 +1,5 @@
 package modal;
 import java.time.LocalDate;
-import modal.category;
 
 public class Expense{
 
@@ -8,8 +7,8 @@ public class Expense{
     private Category category;
     private LocalDate date;
     private String note;
-    private static int idCounter;
-    private int id;
+    private static int idCounter = 1;
+    private int id = 1;
 
     // Empty constuctor because default constructor is already overridden by parameterised constuctor. 
     public Expense(){}
@@ -21,8 +20,9 @@ public class Expense{
         this.date = date;
         this.note = note;
         this.id = idCounter++;
+        
 
-        System.out.println("Expense successfully! \n\n===========================================\n");
+        System.out.println("Expense added successfully!! \n\n===========================================\n");
 
     }
 
@@ -44,7 +44,7 @@ public class Expense{
         return this.id;
     }
 
-    public int getAmount(){
+    public double getAmount(){
         return this.amount;
     }
 
@@ -60,24 +60,24 @@ public class Expense{
         return this.date;
     }
 
-    public double getMonthlyTotal(){
+    // public double getMonthlyTotal(){
 
-    }
+    // }
 
-    public String getCategoryStats(){
+    // public String getCategoryStats(){
 
-    }
+    // }
 
-    public String searchByDateRange(){
+    // public String searchByDateRange(){
 
-    }
+    // }
 
-    public void saveToFile(){
+    // public void saveToFile(){
 
-    }
+    // }
 
-    public void loadFromFile(){
+    // public void loadFromFile(){
         
-    }
+    // }
 
 }

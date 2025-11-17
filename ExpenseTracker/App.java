@@ -4,7 +4,7 @@ import service.ExpenseManager;
 public class App{
     public static void main(String args[]){
         
-        Scanner sc = new Scanner();
+        Scanner sc = new Scanner(System.in);
 
         ExpenseManager em = new ExpenseManager();
 
@@ -46,21 +46,26 @@ public class App{
                     em.viewAllExpense(sc);
                     break;
                 case 5:
-                    em.monthlyTotal(sc);
-                    break;
+                    // em.monthlyTotal(sc);
+                    continue;
+                    // break;
                 case 6:
-                    em.categoryWiseStats(sc);
-                    break;
+                    // em.categoryWiseStats(sc);
+                    continue;
+                    // break;
                 case 7:
-                    em.searchExpenseByDateRange(sc);
-                    break;
+                    // em.searchExpenseByDateRange(sc);
+                    continue;
+                    // break;
                 case 8:
-                    em.exportToCSV(sc);
-                    break;
+                    // em.exportToCSV(sc);
+                    continue;
+                    // break;
                 case 9:
                     System.out.println("Saving data...");
                     System.out.println("Data saved to expense.txt");
                     System.out.println("Thank you for using Expense Tracker! Goodbye :)");
+                    running = false;
                     break;
                 default:
                     System.out.println("Enter valid number!!!");

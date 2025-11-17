@@ -1,11 +1,11 @@
 package modal;
 
 public enum Category{
-    FOOD("Food & Dining"),
-    TRAVEL("Travel & Commute"),
+    FOOD("Food"),
+    TRAVEL("Travel"),
     SHOPPING("Shopping"),
-    BILLS("Utility Bills"),
-    OTHERS("Miscellaneous");
+    BILLS("Bills"),
+    OTHERS("Others");
 
     private String label;
 

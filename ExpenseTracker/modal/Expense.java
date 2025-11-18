@@ -34,10 +34,6 @@ public class Expense{
         this.note = note;
     }
 
-    public void deleteExpense(){
-
-    }
-
     // Getters
 
     public int getId(){
@@ -59,25 +55,4 @@ public class Expense{
     public LocalDate getDate(){
         return this.date;
     }
-
-    // public double getMonthlyTotal(){
-
-    // }
-
-    // public String getCategoryStats(){
-
-    // }
-
-    // public String searchByDateRange(){
-
-    // }
-
-    // public void saveToFile(){
-
-    // }
-
-    // public void loadFromFile(){
-        
-    // }
-
 }

@@ -5,10 +5,13 @@ import modal.Category;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.time.temporal.ChronoField;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 
 public class ExpenseManager{
 
-    private ArrayList<Expense> allExpenses = new ArrayList<>(); 
+    private ArrayList<Expense> allExpenses = new ArrayList<>();
 
     private int getExpenseId(Scanner sc){
         int id;
@@ -28,6 +31,49 @@ public class ExpenseManager{
             break;
         }
         return id;
+    }
+
+    private void showMonthlyTotal(Scanner sc,int month,int year){
+        LocalDate firstDate = LocalDate.of(year, month, 1);;
+        LocalDate lastDate = LocalDate.of(year,month,firstDate.lengthOfMonth());
+
+        double food = 0,travel = 0,shopping = 0,bills = 0,others = 0;
+        double totalAmount = 0;
+        for(Expense e : allExpenses){
+            LocalDate date = e.getDate();
+            if(!date.isBefore(firstDate) && !date.isAfter(lastDate)){
+                Category category = e.getCategory();
+                double amount = e.getAmount(); 
+                switch(category){
+                    case FOOD:
+                        food += amount;
+                        break;
+                    case TRAVEL:
+                        travel += amount;
+                        break;
+                    case SHOPPING:
+                        shopping += amount;
+                        break;
+                    case BILLS:
+                        bills += amount;
+                        break;
+                    case OTHERS:
+                        others += amount;
+                        break;
+                    default: continue;
+                }
+                totalAmount += amount;
+            }
+        }
+
+        System.out.println("\n------- Monthly Total (" + firstDate.getMonth().toString().toLowerCase() + " " + year + ") -------");
+        System.out.println("Food       : " + food);
+        System.out.println("Shopping   : " + shopping);
+        System.out.println("Bills      : " + bills);
+        System.out.println("Travel     : " + travel);
+        System.out.println("Others     : " + others);
+        System.out.println("---------------------------------------------");
+        System.out.println("TOTAL      : " + totalAmount);
     }
 
     public void addExpense(Scanner sc){
@@ -138,6 +184,7 @@ public class ExpenseManager{
                             continue;
                         }
                     }
+                    break;
                 }
                 // Take categroy
                 Category category;
@@ -177,7 +224,7 @@ public class ExpenseManager{
                     break;
                 }
                 // Take note
-                System.out.print("Enter new note (or press Enter to keep same): Sneakers on discount");
+                System.out.print("Enter new note (or press Enter to keep same): ");
                 String note = sc.nextLine();
                 if(note.isEmpty()) note = expense.getNote();
                 expense.editExpense(amount , category , date , note);
@@ -213,6 +260,7 @@ public class ExpenseManager{
     }
 
     public void monthlyTotal(Scanner sc){
+
         int month;
         while(true){
             System.out.print("Enter month (1-12): ");
@@ -231,7 +279,7 @@ public class ExpenseManager{
 
         int year;
         while(true){
-            System.out.println("Enter year: ");
+            System.out.print("Enter year: ");
             if(!sc.hasNextInt()){
                 System.out.println("Enter a number for year!!!");
                 sc.nextLine();
@@ -244,11 +292,99 @@ public class ExpenseManager{
             }
             break;
         }
+        showMonthlyTotal(sc,month,year);
     }
 
-    public void categoryWiseStats(Scanner sc){}
+    public void categoryWiseStats(Scanner sc){
+        double food = 0,travel = 0,shopping = 0,bills = 0,others = 0;
+        int foodItems = 0,travelItems = 0,shoppingItems=0,billItems=0,otherItems=0;
+        for(Expense e : allExpenses){
+            LocalDate date = e.getDate();
+            Category category = e.getCategory();
+            double amount = e.getAmount(); 
+            switch(category){
+                case FOOD:
+                    food += amount;
+                    foodItems++;
+                    break;
+                case TRAVEL:
+                    travel += amount;
+                    travelItems++;
+                    break;
+                case SHOPPING:
+                    shopping += amount;
+                    shoppingItems++;
+                    break;
+                case BILLS:
+                    bills += amount;
+                    billItems++;
+                    break;
+                case OTHERS:
+                    others += amount;
+                    otherItems++;
+                    break;
+                default: continue;
+            }
+        }
 
-    public void searchExpenseByDateRange(Scanner sc){}
+        System.out.println("\n------- Category-wise Statistics -------");
+        System.out.println("Food       : " + food + " (" + foodItems+ " items)");
+        System.out.println("Shopping   : " + shopping + " (" + shoppingItems+ " items)");
+        System.out.println("Bills      : " + bills + " (" + billItems+ " items)");
+        System.out.println("Travel     : " + travel + " (" + travelItems+ " items)");
+        System.out.println("Others     : " + others + " (" + otherItems+ " items)");
+        System.out.println("-----------------------------------------");
+    }
+
+    public void searchExpenseByDateRange(Scanner sc){
+        LocalDate start=null,end=null;
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .appendValue(ChronoField.YEAR,4)
+                .appendLiteral('-')
+                .appendValue(ChronoField.MONTH_OF_YEAR)
+                .appendLiteral('-')
+                .appendValue(ChronoField.DAY_OF_MONTH)
+                .toFormatter();
+        while(true){
+            System.out.print("Enter start Date (YYYY-MM-DD): ");
+            String startDate = sc.nextLine();
+            try{
+                start = LocalDate.parse(startDate,formatter);
+                break;
+            }catch(Exception e){
+                System.out.println(e.toString());
+                System.out.println("Enter valid date!");
+            }
+        }
+
+        while(true){
+            System.out.print("Enter end Date (YYYY-MM-DD): ");
+            String endDate = sc.nextLine();
+            try{
+                end = LocalDate.parse(endDate,formatter);
+                if(end.isBefore(start)){
+                    throw new IllegalArgumentException("End date should be after the start date.");
+                }
+                break;
+            }catch(Exception e){
+                System.out.println("Enter valied date!");
+            }
+        }
+        double totalAmount=0;
+        System.out.println("-------------------- ALL EXPENSES -------------------");
+        System.out.printf("%-4s | %-10s | %-12s | %-10s  | %-8s%n", 
+                  "ID", "Amount", "Category", "Date", "Note");
+        for(Expense expense : allExpenses){
+            LocalDate date = expense.getDate();
+            if(!date.isBefore(start) && !date.isAfter(end)){
+                double amount = expense.getAmount();
+                totalAmount += amount;
+                System.out.printf("%-4d | %-10.2f | %-12s | %-10s  | %-8s%n",expense.getId(),amount,expense.getCategory(),expense.getDate(),expense.getNote());
+            }
+        }
+        System.out.println("-----------------------------------------------------");
+        System.out.println("Total in range: " + totalAmount);
+    }
 
     public void exportToCSV(){}
 

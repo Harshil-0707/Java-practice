@@ -46,17 +46,14 @@ public class App{
                     em.viewAllExpense(sc);
                     break;
                 case 5:
-                    // em.monthlyTotal(sc);
-                    continue;
-                    // break;
+                    em.monthlyTotal(sc);
+                    break;
                 case 6:
-                    // em.categoryWiseStats(sc);
-                    continue;
-                    // break;
+                    em.categoryWiseStats(sc);
+                    break;
                 case 7:
-                    // em.searchExpenseByDateRange(sc);
-                    continue;
-                    // break;
+                    em.searchExpenseByDateRange(sc);
+                    break;
                 case 8:
                     // em.exportToCSV(sc);
                     continue;

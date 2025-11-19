@@ -55,12 +55,12 @@ public class App{
                     em.searchExpenseByDateRange(sc);
                     break;
                 case 8:
-                    // em.exportToCSV(sc);
-                    continue;
-                    // break;
+                    em.exportToCSV();
+                    break;
                 case 9:
                     System.out.println("Saving data...");
-                    System.out.println("Data saved to expense.txt");
+                    em.exportToCSV();
+                    System.out.println("Data saved to Expenses.csv");
                     System.out.println("Thank you for using Expense Tracker! Goodbye :)");
                     running = false;
                     break;

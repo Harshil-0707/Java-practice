@@ -5,6 +5,7 @@ import modal.Category;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import storage.FileStorage;
 import java.time.temporal.ChronoField;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -178,13 +179,12 @@ public class ExpenseManager{
                         break;
                     }else{
                         try{
-                           amount = Integer.parseInt(amountInString);
+                            amount = Integer.parseInt(amountInString);
+                            break;
                         }catch(Exception e){
                             System.out.println("Enter valid amount.");
-                            continue;
                         }
                     }
-                    break;
                 }
                 // Take categroy
                 Category category;
@@ -197,13 +197,11 @@ public class ExpenseManager{
                     }else{
                         try{
                             category = Category.valueOf(userInput.toUpperCase());
-
+                            break;
                         }catch(IllegalArgumentException iae){
                             System.out.println("Invalid category!");
-                            continue;
                         }
                     }
-                    break;
                 } 
                 // Take date
                 LocalDate date;
@@ -216,12 +214,11 @@ public class ExpenseManager{
                     }else{
                         try {
                             date = LocalDate.parse(userInput);
+                            break;
                         } catch (Exception exe) {
                             System.out.println("Invalid date! Please enter a valid day, month, and year.");
-                            continue;
                         }
                     }
-                    break;
                 }
                 // Take note
                 System.out.print("Enter new note (or press Enter to keep same): ");
@@ -386,6 +383,9 @@ public class ExpenseManager{
         System.out.println("Total in range: " + totalAmount);
     }
 
-    public void exportToCSV(){}
+    public void exportToCSV(){
+        FileStorage fs = new FileStorage();
+        fs.save(allExpenses);
+    }
 
 }

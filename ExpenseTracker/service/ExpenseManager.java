@@ -78,6 +78,13 @@ public class ExpenseManager{
     }
 
     public void addExpense(Scanner sc){
+        if(allExpenses.size() == 0){
+            FileStorage fs = new FileStorage();
+            for(Expense exp : fs.load()){
+                allExpenses.add(exp);
+            }
+        }
+
         double amount;
         while(true){
             System.out.print("Enter amount: ");

@@ -23,7 +23,15 @@ public class Expense{
         
 
         System.out.println("Expense added successfully!! \n\n===========================================\n");
+    }
 
+    // Constructor to add object that was retrived from the csv file.
+    public Expense(double amount,Category category,LocalDate date,String note,int id){
+        this.amount = amount;
+        this.category = category;
+        this.date = date;
+        this.note = note;
+        this.id = id;
     }
 
     // Edit expense
@@ -54,5 +62,12 @@ public class Expense{
 
     public LocalDate getDate(){
         return this.date;
+    }
+
+    // Setters
+
+    public void setId(int id){
+        this.id = id;
+        this.idCounter = id;
     }
 }

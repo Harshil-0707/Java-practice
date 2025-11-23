@@ -21,7 +21,6 @@ public class Expense{
         this.note = note;
         this.id = idCounter++;
         
-
         System.out.println("Expense added successfully!! \n\n===========================================\n");
     }
 
@@ -32,6 +31,7 @@ public class Expense{
         this.date = date;
         this.note = note;
         this.id = id;
+        ++idCounter;
     }
 
     // Edit expense

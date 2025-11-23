@@ -12,7 +12,8 @@ import java.time.format.DateTimeFormatterBuilder;
 
 public class ExpenseManager{
 
-    private ArrayList<Expense> allExpenses = new ArrayList<>();
+    private FileStorage fs = new FileStorage();
+    private ArrayList<Expense> allExpenses = new ArrayList<>(this.fs.load());
 
     private int getExpenseId(Scanner sc){
         int id;
@@ -78,12 +79,6 @@ public class ExpenseManager{
     }
 
     public void addExpense(Scanner sc){
-        if(allExpenses.size() == 0){
-            FileStorage fs = new FileStorage();
-            for(Expense exp : fs.load()){
-                allExpenses.add(exp);
-            }
-        }
 
         double amount;
         while(true){

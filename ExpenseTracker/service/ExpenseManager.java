@@ -12,8 +12,12 @@ import java.time.format.DateTimeFormatterBuilder;
 
 public class ExpenseManager{
 
+    // Get data from the file when program is executed
     private FileStorage fs = new FileStorage();
     private ArrayList<Expense> allExpenses = new ArrayList<>(this.fs.load());
+
+
+    // private methods used as utils for other public methods
 
     private int getExpenseId(Scanner sc){
         int id;
@@ -77,6 +81,8 @@ public class ExpenseManager{
         System.out.println("---------------------------------------------");
         System.out.println("TOTAL      : " + totalAmount);
     }
+
+    // Public methods the used in App.java file
 
     public void addExpense(Scanner sc){
 

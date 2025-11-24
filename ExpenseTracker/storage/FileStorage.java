@@ -11,6 +11,7 @@ import java.io.IOException;
 
 public class FileStorage implements Storage{
 
+    // Save all the expense in the Expense.csv file this function overrides previous data so for large data it will work slowly but it can be optimized instead of overriding it can append on the next line
     public void save(ArrayList<Expense> allExpneses){
         String csvFile = "Expenses.csv";
         try(FileWriter writer = new FileWriter(csvFile)){
@@ -26,6 +27,7 @@ public class FileStorage implements Storage{
         load();
     }
 
+    // Load data from the Expense.csv file return retirevedExpenses arrayList which is empty that means file was not found.
     public ArrayList<Expense> load(){
         String csvFile = "Expenses.csv";
         String line;

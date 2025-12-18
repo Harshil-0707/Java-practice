@@ -1,42 +1,42 @@
 public enum OrderStatus{
     
-    PLACED("PLACED"){
+    PLACED("Placed"){
         @Override
         public boolean canTransitionTo(OrderStatus next){
             return next == PAID || next == CANCELLED;
         }
     },
-    PAID("PAID"){
+    PAID("Paid"){
         @Override
         public boolean canTransitionTo(OrderStatus next){
             return next == PACKED || next == CANCELLED;
         }
     },
-    PACKED("PACKED"){
+    PACKED("Packed"){
         @Override
         public boolean canTransitionTo(OrderStatus next){
             return next == SHIPPED;
         }
 
     },
-    SHIPPED("SHIPPED"){
+    SHIPPED("Shipped"){
         @Override
         public boolean canTransitionTo(OrderStatus next){
             return next == DELIVERED;
         }
     }, 
-    DELIVERED("DELIVERED"){
+    DELIVERED("Delivered"){
         @Override
         public boolean canTransitionTo(OrderStatus next){
             return false;
         }
     }, 
-    CANCELLED("CANCELLED"){
+    CANCELLED("Cancelled"){
         @Override
         public boolean canTransitionTo(OrderStatus next){
             return false;
         }
-    }
+    };
 
     private final String label;
 
@@ -45,7 +45,7 @@ public enum OrderStatus{
     }
 
     public String getLabel(){
-        return this.label;
+        return label;
     }
 
     public boolean canTransitionTo(OrderStatus next){

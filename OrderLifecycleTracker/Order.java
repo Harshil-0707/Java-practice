@@ -8,10 +8,10 @@ public class Order{
     private double amount;
 
     public Order(double amount,PaymentMethod paymentmethod){
-        this.Id = UUID.randomUUID().toString().subString(0,8);
+        this.Id = UUID.randomUUID().toString().substring(0,8);
         this.status = OrderStatus.PLACED;
         this.amount = amount;
-        this.paymentMethod = paymentMethod;
+        this.paymentMethod = paymentmethod;
     }
 
     public String getId(){
@@ -30,12 +30,16 @@ public class Order{
         return this.status;
     }
 
-    public boolean transitionTo(OrderStatus status){
-        if(status.canTransitionTo(status)){
+    public boolean transitionTo(OrderStatus next){
+        if(status.canTransitionTo(next)){
             status = next;
             return true;
         }
         return false;
+    }
+
+    public double totalWithFees() {
+        return amount + amount * (paymentMethod.getFeePercent() / 100.0);
     }
 
     public boolean cancel(){
@@ -48,7 +52,7 @@ public class Order{
 
     public String toString(){
         return String.format("Order[%s] Status: %s, Amount: %.2f, Payment: %s, Total: %.2f",
-                id, status, amount, paymentMethod, totalWithFees());
+                Id, status, amount, paymentMethod, totalWithFees());
     }
 
 }

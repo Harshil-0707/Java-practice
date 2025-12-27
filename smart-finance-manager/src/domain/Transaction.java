@@ -23,6 +23,8 @@ public class Transaction{
         this.category = builder.category;
     }
 
+    // ? Builder class for Setter
+
     public static class Builder{
 
         private final String notes;
@@ -66,4 +68,35 @@ public class Transaction{
             return new Transaction(this);
         }
     }
+
+    // ? Getters
+
+    public String getId(){
+        return this.id;
+    }
+
+    public String getNotes(){
+        return this.notes;
+    }
+
+    public LocalDate getDate(){
+        return this.date;
+    }
+    
+    public double getAmount(){
+        return this.amount;
+    }
+
+    public Status getStatus(){
+        return this.status;
+    }
+
+    public Category getCategory(){
+        return this.category;
+    }
+
+    public TransactionType getType(){
+        return this.type;
+    }
+
 }

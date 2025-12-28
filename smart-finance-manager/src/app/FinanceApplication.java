@@ -1,6 +1,7 @@
 package app;
 
 import java.util.Scanner;
+import service.TransactionService;
 
 public class FinanceApplication{
     public static void main(String[] args){
@@ -28,8 +29,10 @@ public class FinanceApplication{
                 continue;
             }
             int userChoice = sc.nextInt();
+            sc.nextLine();
             switch(userChoice){
                 case 1:
+                    TransactionService.addTransaction();
                     break;
                 case 2:
                     break;

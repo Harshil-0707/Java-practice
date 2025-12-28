@@ -2,15 +2,15 @@ package enums;
 
 enum TransactionType{
 
-    EXPENSE("EXPENSE"),
-    INCOME("INCOME");
+    EXPENSE(1),
+    INCOME(2);
 
-    private final String label;
-    TransactionType(String label){
-        this.label = label;
+    private final int id;
+    TransactionType(int id){
+        this.id = id;
     }
 
-    String getLabel(){
-        return this.label;
+    public int getId(){
+        return this.id;
     }
 }

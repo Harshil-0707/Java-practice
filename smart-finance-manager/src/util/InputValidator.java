@@ -40,11 +40,12 @@ public class InputValidator{
         }
     }
 
-    public LocalDate validateDate(){
+    public LocalDate validateDate(boolean fullDate){
         while(true){
             String dateString = sc.nextLine();
             try{
-                return LocalDate.parse(dateString,AppConfig.DATE_FORMAT);
+                return fullDate ? LocalDate.parse(dateString,AppConfig.FULL_DATE_FORMAT) :
+                LocalDate.parse(dateString,AppConfig.HALF_DATE_FORMAT); 
             }catch(Exception e){
                 System.out.println("Enter valid date");
             }finally{

@@ -75,28 +75,30 @@ public class Transaction{
         return this.id;
     }
 
-    public String getNotes(){
-        return this.notes;
-    }
-
-    public LocalDate getDate(){
-        return this.date;
-    }
-    
     public double getAmount(){
         return this.amount;
     }
 
-    public Status getStatus(){
-        return this.status;
+    public TransactionType getType(){
+        return this.type;
     }
 
     public Category getCategory(){
         return this.category;
     }
 
-    public TransactionType getType(){
-        return this.type;
+    public LocalDate getDate(){
+        return this.date;
     }
+
+    public String getNotes(){
+        return this.notes;
+    }
+
+    public Status getStatus(){
+        return this.status;
+    }
+
+   
 
 }

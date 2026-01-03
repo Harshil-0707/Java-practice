@@ -5,11 +5,11 @@ import java.util.EnumMap;
 import java.time.LocalDate;
 
 public class Budget{
-    private final LocalDate date;
+    private LocalDate date;
     private final EnumMap<Category,Double> budgets = new EnumMap<>(Category.class);
 
     // Getter
-    public EnumMap<Category,Double> getBudget(Category category){
+    public double getBudget(Category category){
         return this.budgets.get(category);
     }
 

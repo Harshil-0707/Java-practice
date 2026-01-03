@@ -1,8 +1,9 @@
 package enums;
 
 import java.util.HashMap;
+import java.util.Map;
 
-enum Category{
+public enum Category{
 
     FOOD(1),
     TRANSPORT(2),
@@ -14,7 +15,7 @@ enum Category{
     private static final Map<Integer,Category> BY_ID = new HashMap<>();
 
     static {
-        for(Category c : values()){
+        for(Category c : Category.values()){
             BY_ID.put(c.id,c);
         }
     }
@@ -25,7 +26,7 @@ enum Category{
 
     public static Category fromId(int id){
         Category result = BY_ID.get(id);
-        if(result = null){
+        if(result == null){
             throw new IllegalArgumentException("Unkown id: " + id);
         }
         return result;

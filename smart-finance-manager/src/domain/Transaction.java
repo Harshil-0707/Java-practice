@@ -27,12 +27,12 @@ public class Transaction{
 
     public static class Builder{
 
-        private final String notes;
-        private final double amount;
-        private final Status status;
-        private final LocalDate date;
-        private final Category category;
-        private final TransactionType type;
+        private String notes;
+        private double amount;
+        private Status status;
+        private LocalDate date;
+        private Category category;
+        private TransactionType type;
 
         public Builder notes(String notes){
             this.notes = notes;

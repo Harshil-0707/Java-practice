@@ -1,6 +1,6 @@
 package enums;
 
-enum Status{
+public enum Status{
     PENDING,
     COMPLETED,
     CANCELLED;

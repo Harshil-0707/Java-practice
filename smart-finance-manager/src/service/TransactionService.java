@@ -39,7 +39,7 @@ public class TransactionService{
         TransactionType tt = transactionNumber == 1 ? TransactionType.EXPENSE : TransactionType.INCOME;
 
         System.out.print("Enter Date (DD-MM-YYYY): ");
-        LocalDate date = InputValidator.getFullDate(true);
+        LocalDate date = InputValidator.getFullDate();
 
         System.out.print("Enter Note: ");
         String notes = InputValidator.getString();
@@ -55,11 +55,11 @@ public class TransactionService{
     public void viewAllTransactions(){ 
 
         String lines = "---------------------------------------------------\n";
+        System.out.println(lines);
+        System.out.println("ID \t Amount \t Type \t Category \t Date \t Notes");
+        System.out.println(lines);
 
         for(Transaction t : this.tr.getTransactions()){
-            System.out.println(lines);
-            System.out.println("ID \t Amount \t Type \t Category \t Date \t Notes\n");
-            System.out.println(lines);
             System.out.println(t.getId() + " \t " + t.getAmount() + " \t " + t.getType() + " \t " + t.getCategory() + " \t " + t.getDate() + " \t " + t.getNotes());
             System.out.println(lines);
         }

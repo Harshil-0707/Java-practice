@@ -98,7 +98,4 @@ public class Transaction{
     public Status getStatus(){
         return this.status;
     }
-
-   
-
 }

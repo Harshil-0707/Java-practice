@@ -1,7 +1,8 @@
 package repository;
 
 import java.util.ArrayList;
-import java.time.LocalDate;
+import java.time.YearMonth;
+import enums.Category;
 import domain.Transaction;
 
 public class TransactionRepository{
@@ -16,26 +17,34 @@ public class TransactionRepository{
         return new ArrayList<>(transactions);
     }
 
-    public double getTotalIncomeForMonth(LocalDate date){
+    public double getTotalIncomeForMonth(YearMonth date){
         double income = 0;
         for(Transaction t : transactions){
             if(date.getYear() == t.getDate().getYear() && date.getMonth() == t.getDate().getMonth() && t.getType().getId() == 2){
                 income += t.getAmount();
             }
-            
         }
-        return 0;
+        return income;
     }
 
-    public double getTotalExpenseForMonth(LocalDate date){
+    public double getTotalExpenseForMonth(YearMonth date){
         double expense = 0;
         for(Transaction t : transactions){
             if(date.getYear() == t.getDate().getYear() && date.getMonth() == t.getDate().getMonth() && t.getType().getId() == 1){
                 expense += t.getAmount();
-            }
-            
+            }      
         }
-        return 0;
+        return expense;
+    }
+
+    public double getCategoryWiseExpenseForMonth(Category category,YearMonth date){
+        double expense = 0;
+        for(Transaction t : transactions){
+            if(date.getYear() == t.getDate().getYear() && date.getMonth() == t.getDate().getMonth() && t.getType().getId() == 1 && t.getCategory() == category){
+                expense += t.getAmount();
+            }      
+        }
+        return expense;
     }
 
 }

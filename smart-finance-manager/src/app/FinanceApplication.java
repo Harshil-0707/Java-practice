@@ -6,14 +6,16 @@ import repository.TransactionRepository;
 
 public class FinanceApplication{
     public static void main(String[] args){
+
         Scanner sc = new Scanner(System.in);
+
         TransactionRepository tr = new TransactionRepository();
         TransactionService ts = new TransactionService(tr);
         ReportService rs = new ReportService(tr);
         BudgetService bs = new BudgetService();
 
         System.out.println("==============================================");
-        System.out.println("SMART PERSONAL FINANCE MANAGEMENT SYSTEM");
+        System.out.println("   SMART PERSONAL FINANCE MANAGEMENT SYSTEM   ");
         System.out.println("==============================================");
         boolean running = true;
 

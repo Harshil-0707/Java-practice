@@ -5,11 +5,32 @@ import domain.Transaction;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import util.InputValidator;
+import java.util.Comparator;
 import repository.TransactionRepository;
 
 public class TransactionService{
 
     private final TransactionRepository tr;
+    private static String[] sortTransactionsOptions = {
+            "Amount (Low -> High)",
+            "Amount (High -> Low)",
+            "Date (Oldest -> Newest)",
+            "Date (Newest -> Oldest)",
+        };
+
+    private ArrayList<Transaction> sortTransaction(int choice){
+
+        ArrayList<Transaction> result = tr.getTransactions();
+        
+        switch(choice){
+            case 1 -> result.sort(Comparator.comparing(Transaction::getAmount));
+            case 2 -> result.sort(Comparator.comparing(Transaction::getAmount).reversed());
+            case 3 -> result.sort(Comparator.comparing(Transaction::getDate));
+            case 4 -> result.sort(Comparator.comparing(Transaction::getDate).reversed());
+        }
+
+        return result;
+    }
 
     public TransactionService(TransactionRepository tr){
         this.tr = tr;
@@ -67,6 +88,31 @@ public class TransactionService{
 
     public void sortTransactions(){
 
+        System.out.println("Sort by:");
+        
+        for(int i = 0; i < sortTransactionsOptions.length;i++){
+            System.out.println((i+1) + ". " + sortTransactionsOptions[i]);
+        }
+
+        System.out.print("Enter choice: ");
+        int choice = InputValidator.getInt(
+            1,
+            sortTransactionsOptions.length,
+            "Enter a number!!!",
+            "Number should be between 1 to " + sortTransactionsOptions.length
+        );
+
+        String lines = "---------------------------------------------------";
+        
+        System.out.println(lines);
+        System.out.println("ID \t Amount \t Type \t Category \t Date \t Notes");
+        System.out.println(lines);
+
+        for(Transaction t : sortTransaction(choice)){
+            System.out.println(t.getId() + " \t " + t.getAmount() + " \t " + t.getType() + " \t " + t.getCategory() + " \t " + t.getDate() + " \t " + t.getNotes());
+            System.out.println(lines);
+        }
+       
     }
 
     public void exportDataToCsv(){

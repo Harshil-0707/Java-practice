@@ -2,8 +2,10 @@ package service;
 
 import domain.Budget;
 import enums.Category;
+import domain.Transaction;
 import util.InputValidator;
 import java.time.YearMonth;
+import enums.TransactionType;
 import repository.TransactionRepository;
 
 public class ReportService{
@@ -14,6 +16,38 @@ public class ReportService{
         this.tr = tr;
     }
 
+    private double getTotalIncomeForMonth(YearMonth date){
+        double income = 0;
+        for(Transaction t : tr.getTransactions()){
+            if (YearMonth.from(t.getDate()).equals(date)
+                && t.getType() == TransactionType.INCOME) {
+                income += t.getAmount();
+            }
+        }
+        return income;
+    }
+
+    private double getTotalExpenseForMonth(YearMonth date){
+        double expense = 0;
+        for(Transaction t : tr.getTransactions()){
+            if (YearMonth.from(t.getDate()).equals(date)
+                && t.getType() == TransactionType.EXPENSE) {
+                expense += t.getAmount();
+            }    
+        }
+        return expense;
+    }
+
+    private double getCategoryWiseExpenseForMonth(Category category,YearMonth date){
+        double expense = 0;
+        for(Transaction t : tr.getTransactions()){
+            if(date.getYear() == t.getDate().getYear() && date.getMonth() == t.getDate().getMonth() && t.getType().getId() == 1 && t.getCategory() == category){
+                expense += t.getAmount();
+            }      
+        }
+        return expense;
+    }
+
     public void viewMonthlyReport(){
 
         String line = "----------------------------------------------";
@@ -21,8 +55,8 @@ public class ReportService{
         System.out.print("Enter month and year for monthly report (MM-YYYY): ");
         YearMonth date = InputValidator.getMonthYear();
 
-        double income = tr.getTotalIncomeForMonth(date);
-        double expense = tr.getTotalExpenseForMonth(date);
+        double income = getTotalIncomeForMonth(date);
+        double expense = getTotalExpenseForMonth(date);
 
         String message;
 
@@ -36,7 +70,7 @@ public class ReportService{
         System.out.println("Budget Status:");
         
         for (Category c : Category.values()) {
-            double categoryWiseExpenseForMonth = tr.getCategoryWiseExpenseForMonth(c,date);
+            double categoryWiseExpenseForMonth = getCategoryWiseExpenseForMonth(c,date);
             double categoryWiseBudget = Budget.INSTANCE.getBudget(c);
             double diff = categoryWiseBudget - categoryWiseExpenseForMonth;
 
@@ -61,13 +95,13 @@ public class ReportService{
         System.out.print("Enter month and year for category wise report (MM-YYYY): ");
         YearMonth date = InputValidator.getMonthYear();
 
-        System.out.println("Category-wise Expense Summary for: " + date.getMonth() + " " + date.getYear());
+        System.out.println("\nCategory-wise Expense Summary for: " + date.getMonth() + " " + date.getYear());
 
         System.out.println("----------------------------------------------");
         for (Category c : Category.values()) {
-            double categoryWiseExpenseForMonth = tr.getCategoryWiseExpenseForMonth(c,date);
+            double categoryWiseExpenseForMonth = getCategoryWiseExpenseForMonth(c,date);
             System.out.println(c + "\t: " + categoryWiseExpenseForMonth);
         }
-        System.out.println("----------------------------------------------");
+        System.out.println("----------------------------------------------\n");
     }
 }

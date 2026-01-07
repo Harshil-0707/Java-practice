@@ -1,20 +1,12 @@
 package repository;
 
-import java.util.ArrayList;
-import java.time.YearMonth;
-import enums.Category;
 import domain.Transaction;
+import java.util.ArrayList;
 
-public class TransactionRepository{
+public interface TransactionRepository{
 
-    private final ArrayList<Transaction> transactions = new ArrayList<>();
-
-    public void save(Transaction t){
-        transactions.add(t);
-    }
-
-    public ArrayList<Transaction> getTransactions(){
-        return new ArrayList<>(transactions);
-    }
-
+    void save(Transaction t);
+    
+    ArrayList<Transaction> getTransactions();
+    
 }

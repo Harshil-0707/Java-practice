@@ -2,14 +2,14 @@ package app;
 
 import java.util.Scanner;
 import service.*;
-import repository.TransactionRepository;
+import repository.InMemoryTransactionRepository;
 
 public class FinanceApplication{
     public static void main(String[] args){
 
         Scanner sc = new Scanner(System.in);
 
-        TransactionRepository tr = new TransactionRepository();
+        InMemoryTransactionRepository tr = new InMemoryTransactionRepository();
         TransactionService ts = new TransactionService(tr);
         ReportService rs = new ReportService(tr);
         BudgetService bs = new BudgetService();

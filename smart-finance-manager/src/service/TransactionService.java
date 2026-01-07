@@ -6,11 +6,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import util.InputValidator;
 import java.util.Comparator;
-import repository.TransactionRepository;
+import repository.InMemoryTransactionRepository;
 
 public class TransactionService{
 
-    private final TransactionRepository tr;
+    private final InMemoryTransactionRepository tr;
     private static String[] sortTransactionsOptions = {
             "Amount (Low -> High)",
             "Amount (High -> Low)",
@@ -32,7 +32,7 @@ public class TransactionService{
         return result;
     }
 
-    public TransactionService(TransactionRepository tr){
+    public TransactionService(InMemoryTransactionRepository tr){
         this.tr = tr;
     }
 

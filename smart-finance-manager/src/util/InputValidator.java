@@ -60,7 +60,6 @@ public class InputValidator{
         }
     }
 
-
     public static YearMonth getMonthYear() {
         while (true) {
             try {
@@ -71,8 +70,6 @@ public class InputValidator{
             }
         }
     }
-
-
 
     public static String getString(){
         return sc.nextLine();

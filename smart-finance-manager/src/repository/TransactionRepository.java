@@ -1,12 +1,26 @@
 package repository;
 
+import util.CsvUtil;
+import java.util.List;
+import enums.Category;
+import java.util.Objects;
 import domain.Transaction;
 import java.util.ArrayList;
 
-public interface TransactionRepository{
+public class TransactionRepository {
 
-    void save(Transaction t);
+    private ArrayList<Transaction> transactions =
+        new ArrayList<>(Objects.requireNonNullElse(
+            CsvUtil.read("data/Data.csv"),
+            List.of()
+        ));
+
+    public void save(Transaction t){
+        transactions.add(t);
+    }
     
-    ArrayList<Transaction> getTransactions();
-    
+    public ArrayList<Transaction> getTransactions(){
+        return new ArrayList<>(transactions);
+    }
+
 }

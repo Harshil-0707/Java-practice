@@ -19,7 +19,10 @@ public class BudgetService{
            
             System.out.print("Enter budget for " + c + ": ");
            
-            amount = InputValidator.getDouble("Amount should be a number!!!","Amount for the budget should be more than 999.");
+            amount = InputValidator.getDouble(
+                "Amount should be a number!!!",
+                "Amount for the budget should be more than 999."
+            );
 
             Budget.INSTANCE.setBudget(c, amount);
             

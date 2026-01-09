@@ -1,22 +1,24 @@
 package service;
 
 import enums.*;
+import util.CsvUtil;
 import domain.Transaction;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import util.InputValidator;
 import java.util.Comparator;
-import repository.InMemoryTransactionRepository;
+import repository.TransactionRepository;
 
 public class TransactionService{
 
-    private final InMemoryTransactionRepository tr;
+    private final TransactionRepository tr;
+    
     private static String[] sortTransactionsOptions = {
-            "Amount (Low -> High)",
-            "Amount (High -> Low)",
-            "Date (Oldest -> Newest)",
-            "Date (Newest -> Oldest)",
-        };
+        "Amount (Low -> High)",
+        "Amount (High -> Low)",
+        "Date (Oldest -> Newest)",
+        "Date (Newest -> Oldest)",
+    };
 
     private ArrayList<Transaction> sortTransaction(int choice){
 
@@ -32,14 +34,17 @@ public class TransactionService{
         return result;
     }
 
-    public TransactionService(InMemoryTransactionRepository tr){
+    public TransactionService(TransactionRepository tr){
         this.tr = tr;
     }
 
     public void addTransaction(){
        
         System.out.print("Enter amount: ");
-        double amount = InputValidator.getDouble("Amount should be a number!!!","Amount should be more than 100.");
+        double amount = InputValidator.getDouble(
+            "Amount should be a number!!!",
+            "Amount should be more than 100."
+        );
 
         System.out.println("Select Category:");
         System.out.println("1. FOOD");
@@ -49,13 +54,23 @@ public class TransactionService{
         System.out.println("5. ENTERTAINMENT");
         System.out.print("Enter choice: ");
 
-        int categoryNumber = InputValidator.getInt(1,5,"Enter a number!!!","Number should be between 1 to 5");
+        int categoryNumber = InputValidator.getInt(
+            1,
+            5,
+            "Enter a number!!!",
+            "Number should be between 1 to 5"
+        );
 
         Category category = Category.fromId(categoryNumber);
 
         System.out.print("Select Transaction Type:\n1. EXPENSE\n2. INCOME\nEnter choice: ");
         
-        int transactionNumber = InputValidator.getInt(1,2,"Enter a number!!!","Number should be either 1 or 2");
+        int transactionNumber = InputValidator.getInt(
+            1,
+            2,
+            "Enter a number!!!",
+            "Number should be either 1 or 2"
+        );
 
         TransactionType tt = transactionNumber == 1 ? TransactionType.EXPENSE : TransactionType.INCOME;
 
@@ -65,24 +80,46 @@ public class TransactionService{
         System.out.print("Enter Note: ");
         String notes = InputValidator.getString();
 
-        Transaction t = new Transaction.Builder().amount(amount).category(category).type(tt).date(date).notes(notes).build();
+        Transaction transaction = new Transaction.Builder()
+                .amount(amount)
+                .category(category)
+                .type(tt)
+                .date(date)
+                .notes(notes)
+                .build();
 
-        tr.save(t);
+        tr.save(transaction);
 
-        System.out.println("Transaction added successfully!\n" + "Transaction ID: " + t.getId() + "\n---------------------------------");
+        System.out.println(
+            "Transaction added successfully!\n" +
+            "Transaction ID: " + transaction.getId() + 
+            "\n---------------------------------"
+        );
 
     }
 
     public void viewAllTransactions(){ 
 
-        String lines = "---------------------------------------------------\n";
-        System.out.println(lines);
-        System.out.println("ID \t Amount \t Type \t Category \t Date \t Notes");
-        System.out.println(lines);
+        String line = "-------------------------------------------------------------------------------";
+
+        System.out.println(line);
+        System.out.printf(
+            "%-10s %-10s %-10s %-15s %-15s %-20s%n",
+            "ID", "Amount", "Type", "Category", "Date", "Notes"
+        );
+        System.out.println(line);
 
         for(Transaction t : this.tr.getTransactions()){
-            System.out.println(t.getId() + " \t " + t.getAmount() + " \t " + t.getType() + " \t " + t.getCategory() + " \t " + t.getDate() + " \t " + t.getNotes());
-            System.out.println(lines);
+            System.out.printf(
+                "%-10s %-10.2f %-10s %-15s %-15s %-20s%n",
+                t.getId(),
+                t.getAmount(),
+                t.getType(),
+                t.getCategory(),
+                t.getDate(),
+                t.getNotes()
+            );
+            System.out.println(line);
         }
     }
 
@@ -102,21 +139,32 @@ public class TransactionService{
             "Number should be between 1 to " + sortTransactionsOptions.length
         );
 
-        String lines = "---------------------------------------------------";
+        String line = "---------------------------------------------------";
         
-        System.out.println(lines);
-        System.out.println("ID \t Amount \t Type \t Category \t Date \t Notes");
-        System.out.println(lines);
+        System.out.println(line);
+        System.out.printf(
+            "%-10s %-10s %-10s %-15s %-15s %-20s%n",
+            "ID", "Amount", "Type", "Category", "Date", "Notes"
+        );
+        System.out.println(line);
 
         for(Transaction t : sortTransaction(choice)){
-            System.out.println(t.getId() + " \t " + t.getAmount() + " \t " + t.getType() + " \t " + t.getCategory() + " \t " + t.getDate() + " \t " + t.getNotes());
-            System.out.println(lines);
+           System.out.printf(
+                "%-10s %-10.2f %-10s %-15s %-15s %-20s%n",
+                t.getId(),
+                t.getAmount(),
+                t.getType(),
+                t.getCategory(),
+                t.getDate(),
+                t.getNotes()
+            );
+            System.out.println(line);
         }
        
     }
 
     public void exportDataToCsv(){
-        
+        CsvUtil.write("data/Data.csv",this.tr.getTransactions());
     }
 
 }

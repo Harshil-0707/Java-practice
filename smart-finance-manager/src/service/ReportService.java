@@ -6,13 +6,13 @@ import domain.Transaction;
 import util.InputValidator;
 import java.time.YearMonth;
 import enums.TransactionType;
-import repository.InMemoryTransactionRepository;
+import repository.TransactionRepository;
 
 public class ReportService{
 
-    private final InMemoryTransactionRepository tr;
+    private final TransactionRepository tr;
 
-    public ReportService(InMemoryTransactionRepository tr){
+    public ReportService(TransactionRepository tr){
         this.tr = tr;
     }
 

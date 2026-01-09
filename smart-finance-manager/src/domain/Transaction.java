@@ -8,7 +8,6 @@ public class Transaction{
     private final String id;
     private final String notes;
     private final double amount;
-    private final Status status;
     private final LocalDate date;
     private final Category category;
     private final TransactionType type;
@@ -19,7 +18,6 @@ public class Transaction{
         this.type = builder.type;
         this.notes = builder.notes;
         this.amount = builder.amount;
-        this.status = builder.status;
         this.category = builder.category;
     }
 
@@ -29,7 +27,6 @@ public class Transaction{
 
         private String notes;
         private double amount;
-        private Status status;
         private LocalDate date;
         private Category category;
         private TransactionType type;
@@ -56,11 +53,6 @@ public class Transaction{
 
         public Builder type(TransactionType type){
             this.type = type;
-            return this;
-        }
-
-        public Builder status(Status status){
-            this.status = status;
             return this;
         }
 
@@ -93,9 +85,5 @@ public class Transaction{
 
     public String getNotes(){
         return this.notes;
-    }
-
-    public Status getStatus(){
-        return this.status;
     }
 }

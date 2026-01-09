@@ -1,15 +1,15 @@
 package app;
 
-import java.util.Scanner;
 import service.*;
-import repository.InMemoryTransactionRepository;
+import java.util.Scanner;
+import repository.TransactionRepository;
 
 public class FinanceApplication{
     public static void main(String[] args){
 
         Scanner sc = new Scanner(System.in);
 
-        InMemoryTransactionRepository tr = new InMemoryTransactionRepository();
+        TransactionRepository tr = new TransactionRepository();
         TransactionService ts = new TransactionService(tr);
         ReportService rs = new ReportService(tr);
         BudgetService bs = new BudgetService();
@@ -58,9 +58,11 @@ public class FinanceApplication{
                     ts.sortTransactions();
                     break;
                 case 7:
+                    ts.exportDataToCsv();
                     break;
                 case 8:{
                     System.out.println("Saving data...\nClosing resources...");
+                    ts.exportDataToCsv();
                     System.out.println("==============================================\nThank you for using Smart Finance Manager \nHave a great day!\n==============================================");
                     running = false;
                     break;

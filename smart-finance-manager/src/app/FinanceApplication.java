@@ -13,6 +13,7 @@ public class FinanceApplication{
         TransactionService ts = new TransactionService(tr);
         ReportService rs = new ReportService(tr);
         BudgetService bs = new BudgetService();
+        BankStatementAnalyzerService bsas = new BankStatementAnalyzerService();
 
         System.out.println("==============================================");
         System.out.println("   SMART PERSONAL FINANCE MANAGEMENT SYSTEM   ");
@@ -28,7 +29,8 @@ public class FinanceApplication{
             System.out.println("5. View Category-wise Report");
             System.out.println("6. Sort Transactions");
             System.out.println("7. Export Data to CSV");
-            System.out.println("8. Exit");
+            System.out.println("8. Analyze Bank Statement");
+            System.out.println("9. Exit");
             System.out.println("----------------------------------------------");
             System.out.print("Enter your choice: ");
             if(!sc.hasNextInt()){
@@ -60,7 +62,10 @@ public class FinanceApplication{
                 case 7:
                     ts.exportDataToCsv();
                     break;
-                case 8:{
+                case 8:
+                    bsas.analyze();
+                    break;
+                case 9:{
                     System.out.println("Saving data...\nClosing resources...");
                     ts.exportDataToCsv();
                     System.out.println("==============================================\nThank you for using Smart Finance Manager \nHave a great day!\n==============================================");

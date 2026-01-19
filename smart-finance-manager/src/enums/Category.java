@@ -9,7 +9,8 @@ public enum Category{
     TRANSPORT(2),
     RENT(3),
     UTILITIES(4),
-    ENTERTAINMENT(5);
+    SHOPPING(5),
+    ENTERTAINMENT(6);
 
     private final int id;
     private static final Map<Integer,Category> BY_ID = new HashMap<>();

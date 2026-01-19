@@ -46,6 +46,10 @@ public final class CsvUtil{
     }
 
     public static void write(String path,ArrayList<Transaction> t){
+        if(t.isEmpty()){
+            System.out.println("Add a transaction before saving it.");
+            return;
+        }
         try(FileWriter writer = new FileWriter(path)){
             writer.append("id,amount,type,category,date,notes\n");
             for(Transaction transaction : t){

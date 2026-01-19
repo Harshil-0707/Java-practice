@@ -5,20 +5,21 @@ import enums.Category;
 import domain.Transaction;
 import util.InputValidator;
 import java.time.YearMonth;
+import java.util.ArrayList;
 import enums.TransactionType;
 import repository.TransactionRepository;
 
 public class ReportService{
 
-    private final TransactionRepository tr;
+    private final ArrayList<Transaction> tr;
 
     public ReportService(TransactionRepository tr){
-        this.tr = tr;
+        this.tr = tr.getTransactions();
     }
 
     private double getTotalIncomeForMonth(YearMonth date){
         double income = 0;
-        for(Transaction t : tr.getTransactions()){
+        for(Transaction t : this.tr){
             if (YearMonth.from(t.getDate()).equals(date)
                 && t.getType() == TransactionType.INCOME) {
                 income += t.getAmount();
@@ -29,7 +30,7 @@ public class ReportService{
 
     private double getTotalExpenseForMonth(YearMonth date){
         double expense = 0;
-        for(Transaction t : tr.getTransactions()){
+        for(Transaction t : this.tr){
             if (YearMonth.from(t.getDate()).equals(date)
                 && t.getType() == TransactionType.EXPENSE) {
                 expense += t.getAmount();
@@ -40,7 +41,7 @@ public class ReportService{
 
     private double getCategoryWiseExpenseForMonth(Category category,YearMonth date){
         double expense = 0;
-        for(Transaction t : tr.getTransactions()){
+        for(Transaction t : this.tr){
             if(date.getYear() == t.getDate().getYear() && date.getMonth() == t.getDate().getMonth() && t.getType().getId() == 1 && t.getCategory() == category){
                 expense += t.getAmount();
             }      

@@ -2,6 +2,7 @@ package service;
 
 import enums.*;
 import util.CsvUtil;
+import config.AppConfig;
 import domain.Transaction;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -51,14 +52,15 @@ public class TransactionService{
         System.out.println("2. TRANSPORT");
         System.out.println("3. RENT");
         System.out.println("4. UTILITIES");
-        System.out.println("5. ENTERTAINMENT");
+        System.out.println("5. SHOPPING");
+        System.out.println("6. ENTERTAINMENT");
         System.out.print("Enter choice: ");
 
         int categoryNumber = InputValidator.getInt(
             1,
-            5,
+            6,
             "Enter a number!!!",
-            "Number should be between 1 to 5"
+            "Number should be between 1 to 6"
         );
 
         Category category = Category.fromId(categoryNumber);
@@ -164,7 +166,7 @@ public class TransactionService{
     }
 
     public void exportDataToCsv(){
-        CsvUtil.write("data/Data.csv",this.tr.getTransactions());
+        CsvUtil.write(AppConfig.DATA_FILE,this.tr.getTransactions());
     }
 
 }

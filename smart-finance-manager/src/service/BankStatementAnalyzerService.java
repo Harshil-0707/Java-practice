@@ -1,18 +1,18 @@
 package service;
 
-import util.CsvUtil;
+import util.*;
+import java.util.Map;
 import java.util.List;
 import enums.Category;
-import java.util.Map;
 import java.time.Month;
 import config.AppConfig;
+import java.util.TreeMap;
 import domain.Transaction;
 import java.util.ArrayList;
-import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.Comparator;
 import enums.TransactionType;
 import java.util.stream.Collectors;
-import repository.TransactionRepository;
 
 public class BankStatementAnalyzerService{
 
@@ -75,15 +75,22 @@ public class BankStatementAnalyzerService{
         System.out.println("MONTHLY EXPENSE REPORT");
         System.out.println("-------------------------------");
 
-        Map<Month,Double> transactions = data.stream().collect(Collectors.groupingBy(d -> d.getDate().getMonth(),Collectors.reducing(0.0, Transaction::getAmount,Double::sum)));
+        Map<YearMonth,Double> transactions = data.stream().collect(
+            Collectors.groupingBy(
+                d -> YearMonth.from(d.getDate()),
+                TreeMap::new,
+                Collectors.reducing(0.0, Transaction::getAmount,Double::sum)
+            )
+        );
 
         if(transactions.isEmpty()){
             System.out.println("No Expenses found!");
             return;
         }
 
-        for(Map.Entry<Month,Double> entry : transactions.entrySet()){
-            System.out.println(entry.getKey() + " " + entry.getValue());
+        for(Map.Entry<YearMonth,Double> entry : transactions.entrySet()){
+            String month = entry.getKey().getMonth().toString().substring(0,1).toUpperCase() + entry.getKey().getMonth().toString().substring(1,3).toLowerCase();
+            System.out.println(month + " " + entry.getKey().getYear() + " : " + entry.getValue());
         }
 
     }
@@ -143,12 +150,12 @@ public class BankStatementAnalyzerService{
 
     }
 
-    private void showSearchedExpenses(){
+    private void showSearchedExpenses(Category category){
         System.out.println("\n-------------------------------");
         System.out.println("SEARCH RESULTS");
         System.out.println("-------------------------------");
 
-        ArrayList<Transaction> transaction = getExpensesByCategory(Category.FOOD);
+        ArrayList<Transaction> transaction = getExpensesByCategory(category);
 
         if(transaction.size() == 0){
             System.out.println("No transactions matched the search keyword.");
@@ -193,7 +200,24 @@ public class BankStatementAnalyzerService{
             return;
         }
 
-        System.out.println("\n" + data.size() + " transactions imported successfully");
+        System.out.println(data.size() + " transactions imported successfully");
+        System.out.println("\nSelect Category:");
+        System.out.println("1. FOOD");
+        System.out.println("2. TRANSPORT");
+        System.out.println("3. RENT");
+        System.out.println("4. UTILITIES");
+        System.out.println("5. SHOPPING");
+        System.out.println("6. ENTERTAINMENT");
+        System.out.print("Enter a number from above to search for a specific category: ");
+
+        int categoryNumber = InputValidator.getInt(
+            1,
+            6,
+            "Enter a number!!!",
+            "Number should be between 1 to 6"
+        );
+
+        Category category = Category.fromId(categoryNumber);
 
         showSummary();
 
@@ -203,7 +227,7 @@ public class BankStatementAnalyzerService{
 
         showHighestExpense();
 
-        showSearchedExpenses();
+        showSearchedExpenses(category);
 
         System.out.println("\n----------------------------------------------------");
         System.out.println("BANK STATEMENT ANALYSIS COMPLETED");
